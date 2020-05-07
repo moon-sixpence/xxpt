@@ -145,6 +145,10 @@
         <action name="timuAll" class="timuAction" method="timuAll">
             <result name="success">/site/timu/timuAll.jsp</result>
         </action>
+
+        <action name="timuFenlei" class="timuAction" method="timuFenlei">
+            <result name="success">/site/timu/timuFenLei.jsp</result>
+        </action>
         <action name="ziciDafen" class="timuAction" method="ziciDafen">
         </action>
         

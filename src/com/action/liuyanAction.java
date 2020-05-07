@@ -84,6 +84,7 @@ public class liuyanAction extends ActionSupport
 	{
 		TLiuyan liuyan=liuyanDAO.findById(id);
 		liuyan.setStatus(TLiuyan.STATUS_XIAJIA);
+
 		liuyanDAO.attachDirty(liuyan);
 		HttpServletRequest request=ServletActionContext.getRequest();
 
@@ -109,15 +110,18 @@ public class liuyanAction extends ActionSupport
 		HttpSession session=request.getSession();
 		TLiuyan liuyan=liuyanDAO.findById(id);
 		liuyan.setHuifu(huifu);
+		liuyan.setSource(source);
+
 		liuyan.setHuifushi(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
 		TStu stu=(TStu)session.getAttribute("stu");
 
-
-		if (null == stu) {
-			liuyan.setHuifuId(1 + "1");
+		if (source == 1) {
+			liuyan.setHuifuId(1 +"");
+		} else {
+			if (stu != null) {
+				liuyan.setHuifuId(stu.getStuId() + "");
+			}
 		}
-
-
 
 		liuyanDAO.attachDirty(liuyan);
 
@@ -168,6 +172,14 @@ public class liuyanAction extends ActionSupport
 		}
 
 		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		TStu stu=(TStu)session.getAttribute("stu");
+
+		if (stu != null) {
+			request.setAttribute("loginStudentName", stu.getStuRealname());
+		}
+
+
 		request.setAttribute("liuyan", liuyan);
 		return ActionSupport.SUCCESS;
 	}

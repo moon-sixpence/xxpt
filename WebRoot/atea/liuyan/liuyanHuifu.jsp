@@ -46,7 +46,9 @@ String path = request.getContextPath();
 						    <td width="75%" bgcolor="#FFFFFF" align="left">
 						        <input type="text" name="huifu" size="80"/>
 						    </td>
-						</tr>
+						</tr>《
+
+						 <<input type="hidden" name="source" value="1">
 						<tr align='center' bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='red';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="22">
 						    <td width="25%" bgcolor="#FFFFFF" align="right">
 						        &nbsp;

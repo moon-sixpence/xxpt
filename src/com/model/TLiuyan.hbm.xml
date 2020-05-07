@@ -28,5 +28,11 @@
         <property name="status" type="java.lang.Integer">
             <column name="status" />
         </property>
+        <property name="source" type="java.lang.Integer">
+            <column name="source" />
+        </property>
+        <property name="huifuId" type="java.lang.String">
+            <column name="huifu_id" />
+        </property>
     </class>
 </hibernate-mapping>

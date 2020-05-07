@@ -1,5 +1,6 @@
 package com.action;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -14,6 +15,10 @@ import com.dao.TTimuDAO;
 import com.model.TDoc;
 import com.model.TTimu;
 import com.opensymphony.xwork2.ActionSupport;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class timuAction extends ActionSupport
 {
@@ -75,10 +80,31 @@ public class timuAction extends ActionSupport
 	
 	public String timuAll()
 	{
-		String sql="from TTimu where del='no'";
+		String sql="from TTimu where del='no' and fenlei="+ fenlei;
 		List timuList=timuDAO.getHibernateTemplate().find(sql);
 		Map request=(Map)ServletActionContext.getContext().get("request");
 		request.put("timuList", timuList);
+		return ActionSupport.SUCCESS;
+	}
+
+	public String timuFenlei()
+	{
+		String sql="select  DISTINCT fenlei from  t_timu ";
+		List<String>  fenLeiList = (List)timuDAO.getHibernateTemplate().execute(new HibernateCallback() {
+
+			@Override
+			public List doInHibernate(Session s) throws HibernateException, SQLException {
+
+				StringBuffer stringBuffer = new StringBuffer(sql);
+				Query query = s.createSQLQuery(stringBuffer.toString());
+
+				List list =query.list();
+
+				return list;
+			}
+		});
+		Map request=(Map)ServletActionContext.getContext().get("request");
+		request.put("fenleiList", fenLeiList);
 		return ActionSupport.SUCCESS;
 	}
 	
